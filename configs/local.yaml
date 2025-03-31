@@ -1,0 +1,20 @@
+server:
+  port: 8080
+databases:
+  - user: admin
+    password: password
+    dbname: mydb_admin
+  - user: user
+    password: password
+    dbname: mydb_user
+security:
+  jwt:
+    key: mysecretkey
+redis:
+  user: admin
+elasticsearch:
+  user: admin
+rabbitMQ:
+  user: admin
+kafka:
+  user: admin
