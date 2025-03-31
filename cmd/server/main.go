@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-  r := routers.NewRouter()
-  
-  r.Run(":8000")
+	r := routers.NewRouter()
+
+	r.Run(":8000")
 }
