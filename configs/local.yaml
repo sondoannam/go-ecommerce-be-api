@@ -1,20 +1,46 @@
 server:
   port: 8080
-databases:
-  - user: admin
-    password: password
-    dbname: mydb_admin
-  - user: user
-    password: password
-    dbname: mydb_user
-security:
-  jwt:
-    key: mysecretkey
-redis:
-  user: admin
-elasticsearch:
-  user: admin
-rabbitMQ:
-  user: admin
-kafka:
-  user: admin
+# databases:
+#   - user: admin
+#     password: password
+#     dbname: mydb_admin
+#   - user: user
+#     password: password
+#     dbname: mydb_user
+# security:
+#   jwt:
+#     key: mysecretkey
+# redis:
+#   user: admin
+# elasticsearch:
+#   user: admin
+# rabbitMQ:
+#   user: admin
+# kafka:
+#   user: admin
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: root
+  dbname: shopdevgo
+  maxIdleConns: 10
+  maxOpenConns: 100
+  connMaxLifetime: 3600
+
+# postgres:
+#   host: 127.0.0.1
+#   port: 5432
+#   user: postgres
+#   password: root
+#   dbname: mydb
+#   maxIdleConns: 10
+#   maxOpenConns: 100
+
+logger:
+  level: debug
+  filename: "./storages/logs/dev.001.log"
+  maxSize: 500
+  maxBackups: 3
+  maxAge: 7
+  compress: true
