@@ -2,23 +2,41 @@ package initialize
 
 import (
 	"github.com/gin-gonic/gin"
-	c "github.com/sondoannam/go-ecommerce-backend-api/internal/controllers"
+	"github.com/sondoannam/go-ecommerce-backend-api/global"
+	"github.com/sondoannam/go-ecommerce-backend-api/internal/routers"
 )
 
 func InitRouter() *gin.Engine {
-	r := gin.Default()
-	
-	v1 := r.Group("/api/v1")
+	var r *gin.Engine
+	if global.Config.Server.Mode == "dev" {
+		gin.SetMode(gin.DebugMode)
+		gin.ForceConsoleColor()
+		r = gin.Default()
+	} else {
+		gin.SetMode(gin.ReleaseMode)
+		r = gin.New()
+	}
+
+	// middleware
+	// r.Use() // logging
+	// r.Use() // cors
+	// r.Use() // limit
+	managerRouter := routers.RouterGroupApp.Manager
+	userRouter := routers.RouterGroupApp.User
+
+	mainGroup := r.Group("/api/v1")
 	{
-		v1.GET("/ping", Pong)
-		v1.GET("/user/1", c.NewUserController().GetUserById)
+		mainGroup.GET("/checkStatus")
+	}
+	{
+		userRouter.ProductRouter.InitProductRouter(mainGroup)
+		userRouter.UserRouter.InitUserRouter(mainGroup)
+	}
+	{
+		managerRouter.UserRouter.InitUserRouter(mainGroup)
+		managerRouter.AdminRouter.InitAdminRouter(mainGroup)
 	}
 
 	return r
 }
 
-func Pong(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"message": "pong",
-	})
-}

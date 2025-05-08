@@ -1,5 +1,6 @@
 server:
   port: 8080
+  mode: "dev"
 # databases:
 #   - user: admin
 #     password: password
